@@ -14,4 +14,27 @@
 
 //Separe essa data em variaveis dia onde contenha apenas o dia, mes onde contenha apenas o mes, e ano onde contenha apenas o ano.
 
+//INICIO DO EXERCICIO: DESAFIO JAVAESCRIPT.
+
+let listElement = document.querySelector("#app ul");
+let inputElement = document.querySelector("#app input");
+let buttonElement = document.querySelector("#app button");
+
+let produtos = [];
+
+function adicionarProdutos(){
+    if(inputElement.value === ''){
+        alert("Digite algum produto.");
+        return false;
+    }else{
+        let novoProdutos = inputElement.value;
+
+        produtos.push(novoProdutos);
+        inputElement.value = '';
+    }
+}
+
+buttonElement.onclick =  adicionarProdutos;
+
+
 
