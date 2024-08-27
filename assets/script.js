@@ -14,13 +14,42 @@
 
 //Separe essa data em variaveis dia onde contenha apenas o dia, mes onde contenha apenas o mes, e ano onde contenha apenas o ano.
 
-//INICIO DO EXERCICIO: DESAFIO JAVAESCRIPT.
+//INICIO DO EXERCICIO: DESAFIO JAVASCRIPT.
 
 let listElement = document.querySelector("#app ul");
 let inputElement = document.querySelector("#app input");
 let buttonElement = document.querySelector("#app button");
 
-let produtos = [];
+let produtos =  JSON.parse(localStorage.getItem("@listaProdutos")) || [];
+
+
+function renderProdutos(){
+    listElement.innerHTML = "";
+
+    produtos.map((todo)=>{
+        let liElement = document.createElement("li");
+        let produtosText = document.createTextNode(todo);
+
+        let linkElement = document.createElement("a");
+        linkElement.setAttribute("href", "#");
+
+        let linkText = document.createTextNode("Excluir");
+        linkElement.appendChild(linkText);
+
+        //indexOf:buscar a posicao do item.
+        let posicao = produtos.indexOf(todo);
+
+        linkElement.setAttribute("onclick", `deletarProdutos(${posicao})`)
+
+        liElement.appendChild(produtosText);
+        liElement.appendChild(linkElement);
+        listElement.appendChild(liElement);
+
+    })
+}
+
+renderProdutos();
+
 
 function adicionarProdutos(){
     if(inputElement.value === ''){
@@ -31,10 +60,27 @@ function adicionarProdutos(){
 
         produtos.push(novoProdutos);
         inputElement.value = '';
+
+        renderProdutos();
+        salvarDados();
+
     }
 }
 
 buttonElement.onclick =  adicionarProdutos;
+
+
+//chamando o renderTarefa: retornando a funcionalidade desejada.
+//splice: removendo o item apartir da posicao.
+function deletarProdutos(posicao){
+    produtos.splice(posicao, 1);
+    renderProdutos();
+    salvarDados();
+}
+
+function salvarDados(){
+    localStorage.setItem("@listaProdutos", JSON.stringify(produtos) )
+}
 
 
 
