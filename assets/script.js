@@ -16,71 +16,59 @@
 
 //INICIO DO EXERCICIO: DESAFIO JAVASCRIPT.
 
-let listElement = document.querySelector("#app ul");
-let inputElement = document.querySelector("#app input");
-let buttonElement = document.querySelector("#app button");
 
-let produtos =  JSON.parse(localStorage.getItem("@listaProdutos")) || [];
+//A lista de produtos deve conter os seguintes produtos: Computador, Telefone, Mouse, Teclado Exiba essa lista no console quando abrir o index.html.
+let listProducts = ["Computador", "Telefone", "Mouse", "Teclado"];
 
+//buscando os item dentro da lista
+listProducts.map((i)=>{
+    console.log(i)
+});
 
-function renderProdutos(){
-    listElement.innerHTML = "";
+//quantidade de itens possui a lista.
+console.log(`Essa lista possui ${listProducts.length} elementos`);
 
-    produtos.map((todo)=>{
-        let liElement = document.createElement("li");
-        let produtosText = document.createTextNode(todo);
+// Retire o produto Mouse da lista e retorne no console a lista com os produtos restantes. 
+const itemRemovido1 = listProducts.splice(2, 1)
+listProducts.map((i) => {
+    console.log(i);
+});
+console.log(`Item removido ${itemRemovido1}`);
 
-        let linkElement = document.createElement("a");
-        linkElement.setAttribute("href", "#");
+// Faça uma busca na sua lista por algum produto, por exemplo procure por Computador 
+// e caso exista esse produto na sua lista exiba um console falando que este produto 
+// existe e mostre tambem o nome deste produto caso não exista mostre uma mensagem avisando
+// que o produto não foi encontrado.
+let itemEcontrado = listProducts.find((item) =>{
+    return item;
+});
 
-        let linkText = document.createTextNode("Excluir");
-        linkElement.appendChild(linkText);
-
-        //indexOf:buscar a posicao do item.
-        let posicao = produtos.indexOf(todo);
-
-        linkElement.setAttribute("onclick", `deletarProdutos(${posicao})`)
-
-        liElement.appendChild(produtosText);
-        liElement.appendChild(linkElement);
-        listElement.appendChild(liElement);
-
-    })
+if(itemEcontrado === "Computador"){
+    console.log(`Item encontrado: ${itemEcontrado}`)
+}else{
+    console.log("Item nao encontrado ou inexistente!")
 }
 
-renderProdutos();
+//REMOVENDO O SEGUNDO ITEM DA LISTA.
+const itemRemovido2 = listProducts.splice(1, 1);
+listProducts.map((item) =>{
+    console.log(item);
+});
+console.log(`Item removido: ${itemRemovido2}`);
 
+//Crie uma lista de apenas numeros 1,3,5,7,0,9​:
+let numeros = [1, 3, 5, 7, 0, 9];
 
-function adicionarProdutos(){
-    if(inputElement.value === ''){
-        alert("Digite algum produto.");
-        return false;
-    }else{
-        let novoProdutos = inputElement.value;
+//ORDENANDO A LISTA DO MENOR PARA O MAIOR.
+console.log(numeros.sort());
+//RETIRANDO UM NUMERO DA LISTA.
+console.log(numeros.splice(1));
 
-        produtos.push(novoProdutos);
-        inputElement.value = '';
+//CRIE UMA STRING QUE CONTENHA O DIA DE HOJE, EXEMPLO:
+// LET HOJE = `20/07/2019`;
+const data = new Date();
+const dataDia = data.getDay().toString().padStart(2, '0');
+const dataMes = data.getMonth();
+const dataAno = data.getFullYear();
 
-        renderProdutos();
-        salvarDados();
-
-    }
-}
-
-buttonElement.onclick =  adicionarProdutos;
-
-
-//chamando o renderTarefa: retornando a funcionalidade desejada.
-//splice: removendo o item apartir da posicao.
-function deletarProdutos(posicao){
-    produtos.splice(posicao, 1);
-    renderProdutos();
-    salvarDados();
-}
-
-function salvarDados(){
-    localStorage.setItem("@listaProdutos", JSON.stringify(produtos) )
-}
-
-
-
+console.log(`${dataDia} /${dataMes}/${dataAno}`);
